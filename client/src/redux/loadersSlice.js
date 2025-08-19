@@ -1,21 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const loadersSlice = createSlice({
+// Slice to handle global loading states
+const loadersSlice = createSlice({
   name: "loaders",
   initialState: {
-    loading: false,
-    buttonLoading: false,
+    loading: false,       // For full-page or global loading spinner
+    buttonLoading: false, // For button-level spinners
   },
   reducers: {
-    SetLoading: (state, action) => {
+    setLoading(state, action) {
       state.loading = action.payload;
     },
-    SetButtonLoading: (state, action) => {
+    setButtonLoading(state, action) {
       state.buttonLoading = action.payload;
     },
   },
 });
 
-export const { SetLoading , SetButtonLoading} = loadersSlice.actions;
+// Export actions for dispatching
+export const { setLoading, setButtonLoading } = loadersSlice.actions;
 
+// Export reducer to configure in store
 export default loadersSlice.reducer;
