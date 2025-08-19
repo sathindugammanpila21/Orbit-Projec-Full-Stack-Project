@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- This sets a consistent font across your application, which is good. --- */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: 500;
+}
+
+
+/* --- These are specific overrides for Ant Design forms, which are likely intentional. --- */
+.ant-form-item {
+  margin-bottom: 10 !important;
+}
+.ant-form-item-label {
+  padding: 0 !important;
+}
+
+
+/* --- This sets a default icon size, which is fine to keep. --- */
+i {
+  font-size: 20px !important;
+}
+
+/* 
+  This rule targets native <button> elements but excludes Ant Design buttons.
+  It removes the default browser background and border, allowing Tailwind classes to work as expected.
+*/
+/* 
+  This rule now specifically targets the simple text-like buttons in the app 
+  (e.g., 'Back to Projects', tab navigation) to make them transparent, 
+  without interfering with styled buttons in forms or modals.
+*/
+/* 
+  This rule now targets any button with a Tailwind hover class (e.g., hover:bg-slate-100).
+  This makes all simple, text-like buttons transparent by default, while leaving
+  explicitly styled buttons (like the main submit button) unaffected.
+*/
+
+
+
+
+
+/*
+================================================================================
+  REMOVED RULES
+================================================================================
+The following overly-broad rules were removed because their use of "!important"
+was preventing your modern Tailwind CSS styles from working.
+
+button {
+  height: 40px !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+input , select{
+  height: 40px !important;
+  border-radius: 0 !important;
+  border: 1px solid #bbbbbb !important;
+  width: 100% !important;
+  padding-left: 15px !important;
+}
+
+textarea{
+  border-radius: 0 !important;
+  border: 1px solid #bbbbbb !important;
+}
+
+input:focus , textarea:focus , select:focus {
+  box-shadow: none !important;
+  border: 1px solid #343434 !important;
+}
+
+table{
+  border: 1px solid #bbbbbb !important;
+}
+================================================================================
+*/
