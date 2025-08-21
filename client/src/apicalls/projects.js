@@ -1,17 +1,32 @@
-const { apiRequest } = require(".");
+import { apiRequest } from ".";
 
-export const CreateProject = async (project) => apiRequest("post", "/api/projects/create-project", project);
+const BASE_URL = "/api/projects";
 
-export const GetAllProjects = async (filters) => apiRequest("post", "/api/projects/get-all-projects", filters);
+/**
+ * Project-related API functions
+ * All return: { success: boolean, data?: any, message?: string }
+ */
 
-export const GetProjectById = async (id) => apiRequest("post", "/api/projects/get-project-by-id", { _id: id });
+export const createProject = async (project) => 
+  apiRequest("post", `${BASE_URL}/create-project`, project);
 
-export const EditProject = async (project) => apiRequest("post", "/api/projects/edit-project", project);
+export const getAllProjects = async (filters) => 
+  apiRequest("post", `${BASE_URL}/get-all-projects`, filters);
 
-export const DeleteProject = async (id) => apiRequest("post", "/api/projects/delete-project", { _id: id });
+export const getProjectById = async (id) => 
+  apiRequest("post", `${BASE_URL}/get-project-by-id`, { _id: id });
 
-export const GetProjectsByRole = async (userId) => apiRequest("post", "/api/projects/get-projects-by-role", { userId });
+export const editProject = async (project) => 
+  apiRequest("post", `${BASE_URL}/edit-project`, project);
 
-export const AddMemberToProject = async (data) => apiRequest("post", "/api/projects/add-member", data);
+export const deleteProject = async (id) => 
+  apiRequest("post", `${BASE_URL}/delete-project`, { _id: id });
 
-export const RemoveMemberFromProject = async (data) => apiRequest("post", "/api/projects/remove-member", data);
+export const getProjectsByRole = async (userId) => 
+  apiRequest("post", `${BASE_URL}/get-projects-by-role`, { userId });
+
+export const addMemberToProject = async (data) => 
+  apiRequest("post", `${BASE_URL}/add-member`, data);
+
+export const removeMemberFromProject = async (data) => 
+  apiRequest("post", `${BASE_URL}/remove-member`, data);
