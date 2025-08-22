@@ -4,9 +4,17 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ConfigProvider } from "antd";
-import store from "./redux/store";
 import { Provider } from "react-redux";
-const root = ReactDOM.createRoot(document.getElementById("root"));
+import store from "./redux/store";
+
+// Create root element safely
+const rootElement = document.getElementById("root");
+if (!rootElement) {
+  throw new Error("Root element not found. Ensure index.html has a div with id='root'.");
+}
+const root = ReactDOM.createRoot(rootElement);
+
+// Render the app with Redux and Ant Design theme
 root.render(
   <Provider store={store}>
     <ConfigProvider
@@ -22,4 +30,5 @@ root.render(
   </Provider>
 );
 
+// Track performance metrics (optional)
 reportWebVitals();
