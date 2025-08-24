@@ -1,8 +1,13 @@
 {
-    "verbose": true,
-    "ignore": ["./client"],
-    "execMap": {
-      "rb": "ruby",
-      "pde": "processing --sketch={{pwd}} --run"
-    }
-  }
+  // Directories or files to ignore
+  "ignore": ["client"],
+
+  // Map file extensions to custom executors
+  "execMap": {
+    "rb": "ruby",
+    "pde": "processing --sketch={{pwd}} --run"
+  },
+
+  // Enable verbose logging
+  "verbose": true
+}
