@@ -1,13 +1,13 @@
-{
+module.exports = {
   // Directories or files to ignore
-  "ignore": ["client"],
+  ignore: ["client"],
 
   // Map file extensions to custom executors
-  "execMap": {
-    "rb": "ruby",
-    "pde": "processing --sketch={{pwd}} --run"
+  execMap: {
+    rb: "ruby",
+    pde: "processing --sketch={{pwd}} --run"
   },
 
   // Enable verbose logging
-  "verbose": true
-}
+  verbose: true
+};
