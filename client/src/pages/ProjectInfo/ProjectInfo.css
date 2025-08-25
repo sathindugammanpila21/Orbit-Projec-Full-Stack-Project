@@ -1,0 +1,10 @@
+.container {
+  padding: 20px;
+}
+
+.project-details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+

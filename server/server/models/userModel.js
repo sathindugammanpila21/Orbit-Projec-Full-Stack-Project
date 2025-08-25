@@ -4,36 +4,24 @@ const userSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
-      required: [true, "First name is required"],
-      trim: true,
+      required: true,
     },
     lastName: {
       type: String,
-      required: [true, "Last name is required"],
-      trim: true,
+      required: true,
     },
     email: {
       type: String,
-      required: [true, "Email is required"],
+      required: true,
       trim: true,
-      lowercase: true,
       unique: true,
-      match: [/^\S+@\S+\.\S+$/, "Please enter a valid email address"],
-      index: true
     },
     password: {
       type: String,
-      required: [true, "Password is required"],
-      select: false, // hides password by default when querying
+      required: true,
     },
   },
   { timestamps: true }
 );
 
-// Virtual field for full name
-userSchema.virtual("fullName").get(function () {
-  return `${this.firstName} ${this.lastName}`;
-});
-
 module.exports = mongoose.model("users", userSchema);
-
