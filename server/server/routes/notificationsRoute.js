@@ -2,38 +2,98 @@ const router = require("express").Router();
 const Notification = require("../models/notificationsModel");
 const authMiddleware = require("../middlewares/authMiddleware");
 
-// Add a new notification
+// Add a notification
 router.post("/add-notification", authMiddleware, async (req, res) => {
   try {
-    const { title, message, userId } = req.body;
+    const { title, description, onClick } = req.body;
 
-    // Basic validation
-    if (!title || !message || !userId) {
-      return res.status(400).send({
+    if (!title || !description || !onClick) {
+      return res.status(400).json({
         success: false,
-        message: "Title, message, and userId are required",
+        message: "Title, description, and onClick are required",
       });
     }
 
     const newNotification = new Notification({
+      user: req.user.id, // safer than req.body.userId
       title,
-      message,
-      userId,
-      ...req.body, // allows extra optional fields if needed
+      description,
+      onClick,
     });
 
     await newNotification.save();
 
-    return res.status(201).send({
+    res.status(201).json({
       success: true,
       data: newNotification,
       message: "Notification added successfully",
     });
   } catch (error) {
-    console.error("Error adding notification:", error.message); // optional logging
-    return res.status(500).send({
+    res.status(500).json({
       success: false,
       message: "Failed to add notification",
+      error: error.message,
+    });
+  }
+});
+
+// Get all notifications for logged-in user
+router.get("/get-all-notifications", authMiddleware, async (req, res) => {
+  try {
+    const notifications = await Notification.find({ user: req.user.id })
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      data: notifications,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch notifications",
+      error: error.message,
+    });
+  }
+});
+
+// Mark all notifications as read
+router.post("/mark-as-read", authMiddleware, async (req, res) => {
+  try {
+    await Notification.updateMany(
+      { user: req.user.id, read: false },
+      { read: true }
+    );
+
+    const notifications = await Notification.find({ user: req.user.id })
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      message: "Notifications marked as read",
+      data: notifications,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to mark notifications as read",
+      error: error.message,
+    });
+  }
+});
+
+// Delete all notifications
+router.delete("/delete-all-notifications", authMiddleware, async (req, res) => {
+  try {
+    await Notification.deleteMany({ user: req.user.id });
+
+    res.status(200).json({
+      success: true,
+      message: "All notifications deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete notifications",
       error: error.message,
     });
   }
